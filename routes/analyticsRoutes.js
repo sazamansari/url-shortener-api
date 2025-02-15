@@ -1,9 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const { baseUrl, store } = require('../config');
-const { isAuthenticated } = require('../authMiddleware');
+import express from 'express';
+import { getBaseUrl, store } from '../config/config.js';
 
-router.use(isAuthenticated);
+const router = express.Router();
+
+// const { isAuthenticated } = require('../auth/authMiddleware');
+// router.use(isAuthenticated);
 
 // Get Overall Analytics API
 router.get('/overall', (req, res) => {
@@ -73,6 +74,7 @@ router.get('/overall', (req, res) => {
 
 // Get Topic-Based Analytics API
 router.get('/topic/:topic', (req, res) => {
+    const baseUrl = getBaseUrl(req);
     const topic = req.params.topic;
     let totalClicks = 0;
     const allUniqueUsers = new Set();
@@ -144,4 +146,4 @@ router.get('/:alias', (req, res) => {
     res.json({ totalClicks, uniqueUsers, clicksByDate, osType, deviceType });
 });
 
-module.exports = router;
+export default router;
