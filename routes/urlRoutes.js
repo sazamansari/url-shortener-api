@@ -27,7 +27,7 @@ router.post("/shorten", async (req, res, next) => {
         deviceType: {},
       },
     };
-    res.json({ shortUrl: `${baseUrl}/api/shorten/${alias}`, createdAt });
+    res.json({ shortUrl: `${baseUrl}/api/url/shorten/${alias}`, createdAt });
   } catch (error) {
     next(error);
   }
